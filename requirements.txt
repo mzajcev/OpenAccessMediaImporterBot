@@ -1,0 +1,9 @@
+pip install python-dateutil #<http://pypi.python.org/pypi/python-dateutil>
+pip install python-elixir #<http://elixir.ematia.de/trac/wiki>
+pip install python-gst0.10 #<http://gstreamer.freedesktop.org/modules/gst-python.html>
+pip install python-magic #<http://www.darwinsys.com/file/>
+pip install python-mutagen #<http://code.google.com/p/mutagen/>
+pip install python-progressbar #<http://pypi.python.org/pypi/progressbar/2.2>
+pip install python-xdg #<http://freedesktop.org/wiki/Software/pyxdg>
+pip install python-werkzeug #<http://werkzeug.pocoo.org/>
+pip install python-wikitools
