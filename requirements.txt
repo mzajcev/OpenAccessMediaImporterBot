@@ -6,4 +6,4 @@ pip install python-mutagen #<http://code.google.com/p/mutagen/>
 pip install python-progressbar #<http://pypi.python.org/pypi/progressbar/2.2>
 pip install python-xdg #<http://freedesktop.org/wiki/Software/pyxdg>
 pip install python-werkzeug #<http://werkzeug.pocoo.org/>
-pip install python-wikitools
+pip install python-wikitools 
