@@ -18,6 +18,3 @@ Das Repo soll neben der obligatorischen Readme Datei auch eine notwendige Licens
 # GitHub-Repositorium: 
 https://github.com/mzajcev/OpenAccessMediaImporterBot 
  
-
-License: https://creativecommons.org/publicdomain/zero/1.0/legalcode 🌸
-Test
