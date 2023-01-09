@@ -10,11 +10,14 @@ Wir planen zum 21.12. (erstes Remotes Treffen) eine Übersicht vorstellen zu kö
 # Geplante Arbeitsweise: 
 Gearbeitet werden soll Projektübergreifend agil, durch Arbeitsaufteilung und damit einhergehende “Sprints” soll der Status des Projekts von jedem Projektmitglied nachvollziehbar sein. Dazu sollen einzelne Schritte dokumentiert, Aufgaben zugewiesen und gemeinsame Reviews von Code im Vordergrund stehen. 
 
- 
+#  Ziel des Projekts:
+Das Ziel unseres Projekts ist die Erweiterung und Implementierung des MediaImporterBots.
+Allgemeiner nehmen wir uns vor Open Science zu fördern, indem wir Daten einfacher und frei nutzbar gestalten.
 
 # Grobe Gliederung des GitHub-Repositorium's: 
 Das Repo soll neben der obligatorischen Readme Datei auch eine notwendige License Datei enthalten. Ordnerstrukturen sollen dabei für eine Nachvollziehbarkeit im Repo sorgen.  
 
 # GitHub-Repositorium: 
+Dieses GitHub Repositorium unterliegt der CC Lizens und kann somit von jedem genutzt und verändert werden.
 https://github.com/mzajcev/OpenAccessMediaImporterBot 
  
