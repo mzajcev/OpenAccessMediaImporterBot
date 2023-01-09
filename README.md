@@ -14,6 +14,9 @@ Gearbeitet werden soll Projektübergreifend agil, durch Arbeitsaufteilung und da
 Das Ziel unseres Projekts ist die Erweiterung und Implementierung des MediaImporterBots.
 Allgemeiner nehmen wir uns vor Open Science zu fördern, indem wir Daten einfacher und frei nutzbar gestalten.
 
+# Projektmanagement: 
+Das interne Projektmanagement läuft in unserem Fall über Microsoft To-Do.
+
 # Grobe Gliederung des GitHub-Repositorium's: 
 Das Repo soll neben der obligatorischen Readme Datei auch eine notwendige License Datei enthalten. Ordnerstrukturen sollen dabei für eine Nachvollziehbarkeit im Repo sorgen.  
 
