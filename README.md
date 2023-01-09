@@ -24,3 +24,6 @@ Das Repo soll neben der obligatorischen Readme Datei auch eine notwendige Licens
 Dieses GitHub Repositorium unterliegt der CC Lizens und kann somit von jedem genutzt und verändert werden.
 https://github.com/mzajcev/OpenAccessMediaImporterBot 
  
+# Standart Codestil unseres Projekts:
+Der automatische Code-Formatter Black ersetzt in unserem Fall den PEP8 Linter. 
+
