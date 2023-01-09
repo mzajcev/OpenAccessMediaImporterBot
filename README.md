@@ -27,3 +27,10 @@ https://github.com/mzajcev/OpenAccessMediaImporterBot
 # Standart Codestil unseres Projekts:
 Der automatische Code-Formatter Black ersetzt in unserem Fall den PEP8 Linter. 
 
+# Arbeitsstil:
+Wir arbeiten in diesem Projekt nach den F.A.I.R Prinzipien.
+F.A.I.R.-Principles:
+F.: Findability
+A.: Accessablity
+I.: Interoperability
+R.: Reproducebility
