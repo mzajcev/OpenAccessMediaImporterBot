@@ -5,10 +5,10 @@ from os import listdir, path, remove, rename
 from sys import argv, exit, stderr, stdout
 
 import errno
-import gobject, pygst
-pygst.require("0.10")
+#import gobject, pygst
+#pygst.require("0.10")
 
-import gst
+#import gst
 import logging
 import progressbar
 
@@ -18,9 +18,14 @@ import pprint
 
 import subprocess
 
-from helpers import autovividict, filename_from_url, media, make_datestring
-from model import session, setup_all, create_all, set_source, \
-    Article, Category, Journal, SupplementaryMaterial
+from helpers import autovividict #media
+from helpers import make_datestring
+from helpers import filename_from_url
+from model import session
+#from model import setup_all 
+#from model import create_all
+from model import set_source
+from model import Article, Category, Journal, SupplementaryMaterial
 
 try:
     action = argv[1]
@@ -51,15 +56,14 @@ try:
 except AssertionError:  # invalid action
     stderr.write('Unknown action “%s”.\n' % action)
     exit(2)
-
 try:
-    exec "from sources import %s as source_module" % target
-except ImportError:  # invalid source
-    stderr.write("Unknown source “%s”.\n" % target)
+    exec("from sources import %s as source_module" % target)
+except ImportError:  # ungültige Quelle
+    stderr.write("Unbekannte Quelle “%s”.\n" % target)
     exit(3)
 
 set_source(target)
-setup_all(True)
+#setup_all(True)
 
 from helpers import config
 
@@ -91,7 +95,7 @@ if action == 'clear-database':
     try:
         remove(filename)
         stderr.write("done.\n")
-    except OSError, e:
+    except OSError as e:
         stderr.write('\n%s\n' % str(e))
 
 if action == 'convert-media':
@@ -137,7 +141,7 @@ if action == 'convert-media':
         try:
             m.find_streams()
             m.convert(temporary_media_path)
-        except RuntimeError, e:
+        except RuntimeError as e:
             logging.error("%s: Skipping conversion of “%s”.", \
                 e, media_raw_path.encode('utf-8'))
             continue

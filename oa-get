@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import csv, progressbar
-import magic
+import filetype
+#import magic
 import urllib3
 import importlib
 import sys
@@ -21,7 +22,11 @@ BUFSIZE = 1024000  # (1024KB)
 from model import session
 from model import Base
 from model import set_source
-from model import Article, Journal, SupplementaryMaterial
+from model import Article
+from model import Journal
+from model import SupplementaryMaterial
+
+
 
 # Bind the MetaData object to a specific database engine
 engine = create_engine('sqlite:///mydata.db')
@@ -55,7 +60,7 @@ except AssertionError:  # invalid action
     stderr.write("Unknown action “%s”.\n" % action)
     exit(2)
 
-sys.path.insert(0, 'C:\\Users\\matth\\Desktop\\OAMI\\oami2\\sources')
+sys.path.insert(0, 'C:\\Users\\marcb\\OpenAccessMediaImporterBot\\sources')
 
 try:
     source_module = importlib.import_module(target.replace('.py', ''))
@@ -74,40 +79,62 @@ set_source(target)
 from helpers import config, mediawiki, filename_from_url
 
 if action == 'detect-duplicates':
-    materials = SupplementaryMaterial.query.filter(
-        (SupplementaryMaterial.mimetype_reported=='audio') |
-        (SupplementaryMaterial.mimetype_reported=='video')
-        ).all()
+    materials = session.query(SupplementaryMaterial).filter(
+        (SupplementaryMaterial.mimetype_reported == 'audio') |
+        (SupplementaryMaterial.mimetype_reported == 'video')
+    ).all()
     if len(materials) == 0:
         stderr.write('No audio or video materials found.\n')
         exit(5)
     for material in materials:
         if mediawiki.is_uploaded(material):
             stderr.write('[X] %s %s %s\n' % (
-                    material.article.doi,
-                    material.title,
-                    material.label
-                    ))
+                material.article.doi,
+                material.title,
+                material.label
+            ))
+
         else:
             stderr.write('[ ] %s %s %s\n' % (
                     material.article.doi,
                     material.title,
                     material.label
                     ))
-
-if action == 'update-mimetypes':
-    ms = magic.open(magic.MIME_TYPE)
-    ms.load()
-    materials = SupplementaryMaterial.query.filter_by(
+            
+def check_mime_types():
+    materials = session.query(SupplementaryMaterial).filter_by(
         mimetype_reported=None,
         mime_subtype_reported=None
     ).all()
     free_materials = [
         material for material in materials \
             if material.article.license_url in config.free_license_urls
-        ]
-    materials = free_materials  # Checking MIME types of non-free
-                                # supplementary materials costs time.
+    ]
+    for material in free_materials:
+        file_path = material.file_path
+        file_type = filetype.guess(file_path)
+        if file_type is not None:
+            mime_type = file_type.mime
+            mime_subtype = file_type.extension
+
+    session.commit()
+
+if action == 'update-mimetypes':
+    materials = session.query(SupplementaryMaterial).filter_by(
+        mimetype_reported=None,
+        mime_subtype_reported=None
+    ).all()
+    free_materials = [
+        material for material in materials \
+            if material.article.license_url in config.free_license_urls
+    ]
+    for material in free_materials:
+        file_path = material.file_path
+        file_type = filetype.guess(file_path)
+        if file_type is not None:
+            mime_type = file_type.mime
+            mime_subtype = file_type.extension
+            # Update material's mimetype_reported and mime_subtype_reported fields
     stderr.write('Checking MIME types …\n')
     try:
         widgets = [
@@ -195,9 +222,7 @@ if action == 'download-metadata':
 
 if action == 'download-media':
     media_path = config.get_media_raw_source_path(target)
-    materials = SupplementaryMaterial.query.filter_by(
-        downloaded=False
-    ).all()
+    materials = session.query(SupplementaryMaterial).filter_by(downloaded=False).all()
     for material in materials:
         license_url = material.article.license_url
         if license_url == '':

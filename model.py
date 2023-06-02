@@ -3,6 +3,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Table, Column, ForeignKey
+from sqlalchemy.orm import relationship
+
 
 # Define the database engine
 engine = create_engine('sqlite:///mydata.db')
@@ -13,13 +16,21 @@ Session = sessionmaker(bind=engine)
 # Create a session object
 session = Session()
 
+
 Base = declarative_base()
+Base.metadata.create_all(engine)
 
 class Journal(Base):
     __tablename__ = 'journal'
 
     title = Column(UnicodeText, primary_key=True)
     articles = relationship('Article')
+
+article_category = Table(
+    'article_category', Base.metadata,
+    Column('article_title', UnicodeText, ForeignKey('article.title')),
+    Column('category_name', UnicodeText, ForeignKey('category.name'))
+)
 
 class Category(Base):
     __tablename__ = 'category'
@@ -45,7 +56,7 @@ class Article(Base):
     copyright_holder = Column(UnicodeText)
     journal_title = Column(UnicodeText, ForeignKey('journal.title'))
     journal = relationship('Journal')
-    supplementary_materials = relationship('SupplementaryMaterial')
+    supplementary_materials = relationship('SupplementaryMaterial', back_populates='article')
     categories = relationship('Category', secondary='article_category')
 
     def __repr__(self):
@@ -53,7 +64,7 @@ class Article(Base):
 
 class SupplementaryMaterial(Base):
     __tablename__ = 'supplementary_material'
-
+    #id = Column(Integer, primary_key=True)
     label = Column(UnicodeText)
     title = Column(UnicodeText)
     caption = Column(UnicodeText)
@@ -63,7 +74,7 @@ class SupplementaryMaterial(Base):
     mime_subtype_reported = Column(UnicodeText)
     url = Column(UnicodeText, primary_key=True)
     article_title = Column(UnicodeText, ForeignKey('article.title'))
-    article = relationship('Article')
+    article = relationship('Article', back_populates='supplementary_materials')
     downloaded = Column(Boolean, default=False)
     converting = Column(Boolean, default=False)
     converted = Column(Boolean, default=False)

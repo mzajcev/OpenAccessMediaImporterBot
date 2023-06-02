@@ -6,9 +6,9 @@ from sys import stderr, exit
 from xdg import xdg_cache_home, xdg_config_home, xdg_data_home
 from configparser import RawConfigParser, NoSectionError, NoOptionError
 
-APPLICATION_NAME = "oami2"
+APPLICATION_NAME = "OpenAccessMediaImporterBot"
 cache_path = os.path.join(xdg_cache_home(), APPLICATION_NAME)
-config_path = r"C:\Users\matth\Desktop\OAMI\oami2"  # Update the path to the config directory
+config_path = r"C:\Users\marcb\OpenAccessMediaImporterBot"  # Update the path to the config directory
 #config_path = os.path.join(xdg_config_home(), APPLICATION_NAME)
 data_path = os.path.join(xdg_data_home(), APPLICATION_NAME)
 
@@ -25,6 +25,7 @@ for p in (cache_path, config_path, data_path):
 _metadata_path = os.path.join(cache_path, 'metadata')
 
 _metadata_raw_path = os.path.join(_metadata_path, 'raw')
+
 def get_metadata_raw_source_path(source_name):
     p = os.path.join(_metadata_raw_path, source_name)
     ensure_directory_exists(p)
