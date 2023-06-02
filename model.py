@@ -24,7 +24,7 @@ class Journal(Base):
     __tablename__ = 'journal'
 
     title = Column(UnicodeText, primary_key=True)
-    articles = relationship('Article')
+    articles = relationship("Article", back_populates="journal")
 
 article_category = Table(
     'article_category', Base.metadata,
@@ -55,7 +55,7 @@ class Article(Base):
     copyright_statement = Column(UnicodeText)
     copyright_holder = Column(UnicodeText)
     journal_title = Column(UnicodeText, ForeignKey('journal.title'))
-    journal = relationship('Journal')
+    journal = relationship("Journal", back_populates="articles")
     supplementary_materials = relationship('SupplementaryMaterial', back_populates='article')
     categories = relationship('Category', secondary='article_category')
 
