@@ -208,11 +208,11 @@ if action == 'forget-uploaded':
     stderr.write("done.\n")
 
 if action == 'find-media':
-    skip = [article.name for article in Article.query.all()]
+    skip = [article.name for article in session.query.Article.all()]
     if len(skip) > 0:
         stderr.write('Skipping %s records … \n' % len(skip))
     source_path = config.get_metadata_raw_source_path(target)
-    for result in source_module.list_articles(
+    for result in source_path.list_articles(
         source_path,
         supplementary_materials=True,
         skip=skip

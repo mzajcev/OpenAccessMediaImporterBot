@@ -29,7 +29,7 @@ from model import SupplementaryMaterial
 
 
 # Bind the MetaData object to a specific database engine
-engine = create_engine('sqlite:///mydata.db')
+engine = create_engine('sqlite:///mydata.sqlite')
 Base.metadata.bind = engine
 
 # Create a session
@@ -60,7 +60,7 @@ except AssertionError:  # invalid action
     stderr.write("Unknown action “%s”.\n" % action)
     exit(2)
 
-sys.path.insert(0, 'C:\\Users\\marcb\\OpenAccessMediaImporterBot\\sources')
+sys.path.insert(0, 'C:\\Users\\Anton\\OneDrive\\Dokumente\\Matthias\\oami\\OpenAccessMediaImporterBot\\sources')
 
 try:
     source_module = importlib.import_module(target.replace('.py', ''))

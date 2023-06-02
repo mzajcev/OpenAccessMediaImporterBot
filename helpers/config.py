@@ -8,7 +8,7 @@ from configparser import RawConfigParser, NoSectionError, NoOptionError
 
 APPLICATION_NAME = "OpenAccessMediaImporterBot"
 cache_path = os.path.join(xdg_cache_home(), APPLICATION_NAME)
-config_path = r"C:\Users\marcb\OpenAccessMediaImporterBot"  # Update the path to the config directory
+config_path = r"C:\Users\Anton\OneDrive\Dokumente\Matthias\oami\OpenAccessMediaImporterBot"  # Update the path to the config directory
 #config_path = os.path.join(xdg_config_home(), APPLICATION_NAME)
 data_path = os.path.join(xdg_data_home(), APPLICATION_NAME)
 
