@@ -71,11 +71,11 @@ def get_userconfig(section, option):
     try:
         return userconfig.get(section, option)
     except NoSectionError:
-        stderr.write("“%s” does not contain a “%s” section.\n" % \
+        print("“%s” does not contain a “%s” section.\n" % \
                          (userconfig_file, section))
         exit(127)
     except NoOptionError:
-        stderr.write("“%s” does not contain a “%s” option in the “%s” section.\n" % \
+        print("“%s” does not contain a “%s” option in the “%s” section.\n" % \
                          (userconfig_file, option, section))
         exit(127)
 

@@ -11,7 +11,7 @@ def _get_file_from_url(url):
         remote_file = urlopen(req)
         return remote_file
     except HTTPError as e:
-        stderr.write('When trying to download <%s>, the following error occured: “%s”.\n' % \
+        print('When trying to download <%s>, the following error occured: “%s”.\n' % \
             (url, str(e)))
         exit(255)
 

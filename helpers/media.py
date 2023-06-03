@@ -50,7 +50,7 @@ class Media():
                     raise RuntimeError(str(err))
 
                 else:
-                    stderr.write('ERROR: %s\n' %str(err))
+                    print('ERROR: %s\n' %str(err))
 
         bus.add_signal_watch()
         bus.connect('message', on_message)
@@ -106,7 +106,7 @@ class Media():
                 loop.quit()
             elif t == gst.MESSAGE_ERROR:  # error
                 err, debug = message.parse_error()
-                stderr.write('ERROR: %s\n' %str(err))
+                print('ERROR: %s\n' %str(err))
                 pipeline.set_state(gst.STATE_NULL)
                 loop.quit()
 

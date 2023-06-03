@@ -17,7 +17,7 @@ def download_metadata(target_directory):
     """
     Downloads XML files for PMCIDs on stdin into given directory.
     """
-    stderr.write('Input PMCIDs, delimited by whitespace: ')
+    print('Input PMCIDs, delimited by whitespace: ')
     pmcids = stdin.read().split()
     if len(pmcids) == 0:
         raise RuntimeError, 'No PMCIDs found.'
@@ -26,9 +26,9 @@ def download_metadata(target_directory):
     listing = listdir(target_directory)
     for filename in listing:
         file_path = path.join(target_directory, filename)
-        stderr.write("Removing “%s” … " % file_path)
+        print("Removing “%s” … " % file_path)
         remove(file_path)
-        stderr.write("done.\n")
+        print("done.\n")
 
     # chunk function by nosklo, source:
     # <http://stackoverflow.com/questions/434287/what-is-the-most-pythonic-way-to-iterate-over-a-list-in-chunks#answer-434328>
@@ -70,7 +70,7 @@ def list_articles(target_directory, supplementary_materials=False, skip=[]):
                 result['article-month'], \
                 result['article-day'] = _get_article_date(tree)
             result['article-url'] = _get_article_url(tree)
-            stderr.write(
+            print(
                 '%s %s\n\t%s\n' % (
                     result['journal-title'],
                     result['article-year'],

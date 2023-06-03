@@ -31,7 +31,7 @@ try:
     action = argv[1]
     target = argv[2]
 except IndexError:
-    stderr.write("""
+    print("""
 oa-cache – Open Access Media Importer local operations
 
 usage:  oa-cache browse-database [source] |
@@ -54,12 +54,12 @@ try:
         'forget-downloaded', 'forget-uploaded', 'print-database-path', \
         'stats'])
 except AssertionError:  # invalid action
-    stderr.write('Unknown action “%s”.\n' % action)
+    print('Unknown action “%s”.\n' % action)
     exit(2)
 try:
     exec("from sources import %s as source_module" % target)
 except ImportError:  # ungültige Quelle
-    stderr.write("Unbekannte Quelle “%s”.\n" % target)
+    print("Unbekannte Quelle “%s”.\n" % target)
     exit(3)
 
 set_source(target)
@@ -72,7 +72,7 @@ if action == 'browse-database':
     try:
         subprocess.call(['sqlitebrowser', filename])
     except OSError:
-        stderr.write('Unable to start sqlitebrowser <http://sqlitebrowser.sourceforge.net/>.\n')
+        print('Unable to start sqlitebrowser <http://sqlitebrowser.sourceforge.net/>.\n')
         exit(4)
 
 if action == 'clear-media':
@@ -85,18 +85,18 @@ if action == 'clear-media':
 
     for filename in listing:
         media_path = path.join(media_raw_directory, filename)
-        stderr.write("Removing “%s” … " % media_path)
+        print("Removing “%s” … " % media_path)
         remove(media_path)
-        stderr.write("done.\n")
+        print("done.\n")
 
 if action == 'clear-database':
     filename = config.database_path(target)
-    stderr.write("Removing “%s” … " % filename)
+    print("Removing “%s” … " % filename)
     try:
         remove(filename)
-        stderr.write("done.\n")
+        print("done.\n")
     except OSError as e:
-        stderr.write('\n%s\n' % str(e))
+        print('\n%s\n' % str(e))
 
 if action == 'convert-media':
     materials = SupplementaryMaterial.query.filter_by(
@@ -113,12 +113,12 @@ if action == 'convert-media':
         media_refined_path = path.join(media_refined_directory, filename + '.ogg')
 
         if material.converting:
-            stderr.write("Skipping conversion of “%s”, earlier attempt failed.\n" % \
+            print("Skipping conversion of “%s”, earlier attempt failed.\n" % \
                 media_raw_path.encode('utf-8'))
             continue
 
         if path.isfile(media_refined_path):
-            stderr.write("Skipping conversion of “%s”, exists at “%s”.\n" %
+            print("Skipping conversion of “%s”, exists at “%s”.\n" %
                 (
                     media_raw_path.encode('utf-8'),
                     media_refined_path.encode('utf-8')
@@ -130,7 +130,7 @@ if action == 'convert-media':
 
         material.converting = True
         session.commit()
-        stderr.write("Converting “%s”, saving into “%s” … " % (
+        print("Converting “%s”, saving into “%s” … " % (
                 media_raw_path.encode('utf-8'),
                 media_refined_path.encode('utf-8')
             )
@@ -171,7 +171,7 @@ if action == 'convert-media':
             pass  # Most probably an encoding failure.
 
         rename(temporary_media_path, media_refined_path)
-        stderr.write("done.\n")
+        print("done.\n")
 
         material.converting = False
         material.converted = True
@@ -181,36 +181,36 @@ if action == 'forget-converted':
     materials = SupplementaryMaterial.query.filter_by(
         converted=True
     ).all()
-    stderr.write("Forgetting conversion of %s materials … " % len(materials))
+    print("Forgetting conversion of %s materials … " % len(materials))
     for material in materials:
         material.converted = False
     session.commit()
-    stderr.write("done.\n")
+    print("done.\n")
 
 if action == 'forget-downloaded':
     materials = SupplementaryMaterial.query.filter_by(
         downloaded=True
     ).all()
-    stderr.write("Forgetting download of %s materials … " % len(materials))
+    print("Forgetting download of %s materials … " % len(materials))
     for material in materials:
         material.downloaded = False
     session.commit()
-    stderr.write("done.\n")
+    print("done.\n")
 
 if action == 'forget-uploaded':
     materials = SupplementaryMaterial.query.filter_by(
         uploaded=True
     ).all()
-    stderr.write("Forgetting upload of %s materials … " % len(materials))
+    print("Forgetting upload of %s materials … " % len(materials))
     for material in materials:
         material.uploaded = False
     session.commit()
-    stderr.write("done.\n")
+    print("done.\n")
 
 if action == 'find-media':
     skip = [article.name for article in session.query.Article.all()]
     if len(skip) > 0:
-        stderr.write('Skipping %s records … \n' % len(skip))
+        print('Skipping %s records … \n' % len(skip))
     source_path = config.get_metadata_raw_source_path(target)
     for result in source_path.list_articles(
         source_path,
@@ -233,14 +233,14 @@ if action == 'find-media':
                 try:
                     doi_prefix = doi.split('/')[0]
                 except AttributeError:
-                    stderr.write(
+                    print(
                         "Skipping Article “%s”, as it has no DOI.\n" % \
                             result['name']
                     )
                     continue
                 if config.whitelist_doi and \
                     doi_prefix not in config.whitelist_doi:
-                    stderr.write(
+                    print(
                         "Skipping DOI %s, prefix %s is not in whitelist.\n" % \
                             (doi, doi_prefix)
                         )
@@ -268,7 +268,7 @@ if action == 'find-media':
                 category.articles.append(article)
             materials = result['supplementary-materials']
             if materials:
-                stderr.write(
+                print(
                     '“%s”:\n' % result['article-title'].encode('utf-8')
                 )
                 mimetypes = {}
@@ -290,16 +290,16 @@ if action == 'find-media':
                             article=article
                         )
                 for mimetype in mimetypes.keys():
-                     stderr.write(
+                     print(
                         '\t%s × %s\n' % (
                             mimetypes[mimetype],
                             mimetype
                             )
                         )
-                stderr.write('\n')
+                print('\n')
                 session.commit()
         except KeyboardInterrupt:
-            stderr.write('Saving database …\n')
+            print('Saving database …\n')
             session.commit()
             exit(0)
 
@@ -308,9 +308,9 @@ if action == "print-database-path":
     stdout.write(filename)
 
 if action == "stats":
-    stderr.write('Counting supplementary materials … ')
+    print('Counting supplementary materials … ')
     materials = SupplementaryMaterial.query.all()
-    stderr.write(str(len(materials)) + ' supplementary materials found.\n')
+    print(str(len(materials)) + ' supplementary materials found.\n')
     p = progressbar.ProgressBar(maxval=len(materials)).start()
     completed = 0
     licenses = {
@@ -382,7 +382,7 @@ if action == "stats":
         completed += 1
         p.update(completed)
 
-    stderr.write('\n')
+    print('\n')
     pp = pprint.PrettyPrinter(indent=4)
     output = pp.pformat({
         'licenses': licenses,

@@ -8,7 +8,7 @@ from configparser import RawConfigParser, NoSectionError, NoOptionError
 
 APPLICATION_NAME = "OpenAccessMediaImporterBot"
 cache_path = os.path.join(xdg_cache_home(), APPLICATION_NAME)
-config_path = r"C:\Users\Anton\OneDrive\Dokumente\Matthias\oami\OpenAccessMediaImporterBot"  # Update the path to the config directory
+config_path = r"/c/Users/carli/Desktop/OpenAccessMediaImporterBot"  # Update the path to the config directory
 #config_path = os.path.join(xdg_config_home(), APPLICATION_NAME)
 data_path = os.path.join(xdg_data_home(), APPLICATION_NAME)
 
@@ -73,10 +73,10 @@ def get_userconfig(section, option):
     try:
         return userconfig.get(section, option)
     except NoSectionError:
-        stderr.write(f"“{userconfig_file}” does not contain a “{section}” section.\n")
+        print(f"“{userconfig_file}” does not contain a “{section}” section.\n")
         exit(127)
     except NoOptionError:
-        stderr.write(f"“{userconfig_file}” does not contain a “{option}” option in the “{section}” section.\n")
+        print(f"“{userconfig_file}” does not contain a “{option}” option in the “{section}” section.\n")
         exit(127)
 
 api_url = get_userconfig('wiki', 'api_url')

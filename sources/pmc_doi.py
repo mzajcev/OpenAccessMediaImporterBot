@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from urllib.error import HTTPError
-from urllib.parse import urlparse
+import urllib.parse as urlparse
 from urllib.request import urlopen
 from urllib.request import Request
 from xml.etree.cElementTree import dump, ElementTree
@@ -20,7 +20,7 @@ def _get_file_from_url(url):
         remote_file = urlopen(req)
         return remote_file
     except HTTPError as e:
-        stderr.write('When trying to download <%s>, the following error occured: “%s”.\n' % \
+        print('When trying to download <%s>, the following error occured: “%s”.\n' % \
             (url, str(e)))
         exit(255)
 
@@ -48,16 +48,14 @@ def download_metadata(target_directory):
     """
     Downloads XML files for DOIs on stdin into given directory.
     """
-    stderr.write('Input DOIs, delimited by whitespace: ')
-    dois = stdin.read().split()
-    if len(dois) == 0:
-        raise RuntimeError('No DOIs found.')
+    print('Input DOIs, delimited by whitespace: ')
+    dois = ["10.1007/s12264-022-00834-9"]
 
-    stderr.write('Getting PubMed Central IDs for given DOIs … ')
+    print('Getting PubMed Central IDs for given DOIs … ')
     pmcids = _get_pmcids_from_dois(dois)
     if len(pmcids) == 0:
         raise RuntimeError('No PubMed Central IDs for given DOIs found.')
-    stderr.write('found: %s\n' % ', '.join(pmcids))
+    print('found: %s\n' % ', '.join(pmcids))
 
     url = _get_query_url_from_pmcids(pmcids)
     yield { 'url': url, 'completed': 0, 'total': 1 }

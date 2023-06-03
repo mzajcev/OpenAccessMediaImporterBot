@@ -23,7 +23,7 @@ try:
     action = argv[1]
     target = argv[2]
 except IndexError:  # no arguments given
-    stderr.write("""
+    print("""
 oa-put – Open Access Importer upload operations
 
 usage:  oa-put upload-media [source]
@@ -34,13 +34,13 @@ usage:  oa-put upload-media [source]
 try:
     assert(action in ['upload-media'])
 except AssertionError:  # invalid action
-    stderr.write("Unknown action “%s”.\n" % action)
+    print("Unknown action “%s”.\n" % action)
     exit(2)
 
 try:
     exec("from sources import %s as source_module" % target)
 except ImportError:  # invalid source
-    stderr.write("Unknown source “%s”.\n" % target)
+    print("Unknown source “%s”.\n" % target)
     exit(3)
 
 set_source(target)
@@ -62,7 +62,7 @@ if action == 'upload-media':
             continue
 
         if mediawiki.is_uploaded(material):
-            stderr.write("Skipping “%s”, already exists at %s.\n" % (
+            print("Skipping “%s”, already exists at %s.\n" % (
                 media_refined_path.encode('utf-8'),
                 mediawiki.get_wiki_name()
             ))
@@ -123,7 +123,7 @@ if action == 'upload-media':
 
         mediawiki.upload(media_refined_path, wiki_filename, page_template)
 
-        stderr.write("“%s” uploaded to <%s>.\n" % (
+        print("“%s” uploaded to <%s>.\n" % (
             media_refined_path.encode('utf-8'),
             config.api_url.encode('utf-8')
         ))

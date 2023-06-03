@@ -13,7 +13,7 @@ def query(params):
     try:
         return request.query()
     except wikitools.api.APIError:
-        stderr.write('Mediawiki API request failed, retrying.\n')
+        print('Mediawiki API request failed, retrying.\n')
         return query(request)
 
 def get_uploads():
@@ -107,7 +107,7 @@ def upload(filename, wiki_filename, page_template):
     """
     Uploades a file to a mediawiki site.
     """
-    stderr.write('Authenticating with <%s>.\n' % config.api_url)
+    print('Authenticating with <%s>.\n' % config.api_url)
     wiki.login(username=config.username, password=config.password)
     wiki_file = wikitools.wikifile.File(wiki=wiki, title=wiki_filename)
     wiki_file.upload(

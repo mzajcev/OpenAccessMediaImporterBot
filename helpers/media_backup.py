@@ -53,7 +53,7 @@ class Media():
         process.wait()
 
         if process.returncode != 0:
-            stderr.write('ERROR: Conversion failed.\n')
+            print('ERROR: Conversion failed.\n')
             exit(1)
 
     def _parse_duration(self, line):
