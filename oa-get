@@ -60,7 +60,7 @@ except AssertionError:  # invalid action
     print("Unknown action “%s”.\n" % action)
     exit(2)
 
-sys.path.insert(0, '/c/Users/carli/Desktop/OpenAccessMediaImporterBot/sources')
+sys.path.insert(0, '../OpenAccessMediaImporterBot/sources')
 
 try:
     source_module = importlib.import_module(target.replace('.py', ''))
