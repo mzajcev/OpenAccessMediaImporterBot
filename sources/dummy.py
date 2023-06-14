@@ -3,15 +3,18 @@ import requests
 from time import sleep
 
 
-def download_metadata(target_directory):
-    if not os.path.exists(target_directory):
-        os.makedirs(target_directory)
-
-    links = [
+def download_metadata(
+    target_directory,
+    links=[
         "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2559997/bin/1756-3305-1-29-S1.mpg",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10036205/bin/10-1055-a-2048-6170-i3798ev2.jpg",
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=9206064%E2%80%9D",
         "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10036205/figure/FI3798-2/",
         "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC460005/figure/F1/",
-    ]
+    ],
+):
+    if not os.path.exists(target_directory):
+        os.makedirs(target_directory)
 
     for link in links:
         try:
@@ -29,7 +32,10 @@ def download_metadata(target_directory):
         except Exception as e:
             print("Fehler beim Herunterladen der Datei:", str(e))
 
-        sleep(0.5)
+        fake_filesize = 1234
+        for i in range(0, fake_filesize, 123):
+            yield {"url": "" + filename, "completed": i, "total": fake_filesize}
+            sleep(0.5)
 
     # Nachdem alle Links abgearbeitet wurden, wird das Skript beendet
     return
@@ -50,6 +56,7 @@ def list_articles(target_directory, supplementary_materials=False, skip=[]):
             "article-url": "http://dx.doi.org/10.1186/1756-3305-1-29",
             "article-license-url": "http://creativecommons.org/licenses/by/2.0",
             "article-copyright-holder": "Behnke et al; licensee BioMed Central Ltd.",
+            # "article-categories": ["test", "test2"],
             "supplementary-materials": [
                 {
                     "label": "",
