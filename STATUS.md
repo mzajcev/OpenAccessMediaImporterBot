@@ -3,7 +3,9 @@ What has been done:
 
 
 Status Dummy File:
-python .\oa-get download-metadata pmc_doi | works with dois added in pmc_doi.py line 63
-python .\oa-get download-metadata dummy   | Download of first test file works other two files get a "No such file ord directory Error"
+python .\oa-get download-metadata pmc_doi | works with dois added in download_metadata function
+python .\oa-get download-metadata dummy   | Download of test files works if file url is a direct link to the file
+python .\oa-cache find-media dummy |  works by changing how dummy works
+python -\oa-put upload-media dummy | doesnt work yet because it uses old elixir functions (.query) which have to be replaced with new ones
 
-
+Elixir replacement has to be found especially for .query function
