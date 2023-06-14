@@ -55,12 +55,11 @@ def _get_file_from_pmcids(pmcids):
     return xml_file
 
 
-def download_metadata(target_directory):
+def download_metadata(target_directory, dois=["10.1007/s12264-022-00834-9"]):
     """
     Downloads XML files for DOIs on stdin into given directory.
     """
     print("Input DOIs, delimited by whitespace: ")
-    dois = ["10.1007/s12264-022-00834-9"]
 
     print("Getting PubMed Central IDs for given DOIs … ")
     pmcids = _get_pmcids_from_dois(dois)
