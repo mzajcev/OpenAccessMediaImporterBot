@@ -58,6 +58,8 @@ def _get_file_from_pmcids(pmcids):
 def download_metadata(target_directory, dois=["10.1007/s12264-022-00834-9"]):
     """
     Downloads XML files for DOIs on stdin into given directory.
+
+    Passed via function rather than input
     """
     print("Input DOIs, delimited by whitespace: ")
 
