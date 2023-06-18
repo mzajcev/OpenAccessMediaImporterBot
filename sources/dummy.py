@@ -56,7 +56,6 @@ def list_articles(target_directory, supplementary_materials=False, skip=[]):
             "article-url": "http://dx.doi.org/10.1186/1756-3305-1-29",
             "article-license-url": "http://creativecommons.org/licenses/by/2.0",
             "article-copyright-holder": "Behnke et al; licensee BioMed Central Ltd.",
-            # "article-categories": ["test", "test2"],
             "supplementary-materials": [
                 {
                     "label": "",
