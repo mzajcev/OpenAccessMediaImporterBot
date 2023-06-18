@@ -1,21 +1,24 @@
-from sqlalchemy import Column, Integer, String, UnicodeText, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, UnicodeText, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, ForeignKey
 from sqlalchemy.orm import relationship
+import sys
+import importlib
 
+def set_source(source):
+    source_module = importlib.import_module(f'sources.{source}')
 
 # Define the database engine
-engine = create_engine('sqlite:///mydata.db')
+engine = create_engine('sqlite:///mydata.sqlite')
 
 # Create a session factory
 Session = sessionmaker(bind=engine)
 
 # Create a session object
 session = Session()
-
 
 Base = declarative_base()
 Base.metadata.create_all(engine)
@@ -36,7 +39,7 @@ class Category(Base):
     __tablename__ = 'category'
 
     name = Column(UnicodeText, primary_key=True)
-    articles = relationship('Article', secondary='article_category')
+    articles = relationship('Article', secondary=article_category, back_populates='categories')
 
 class Article(Base):
     __tablename__ = 'article'
@@ -57,7 +60,7 @@ class Article(Base):
     journal_title = Column(UnicodeText, ForeignKey('journal.title'))
     journal = relationship("Journal", back_populates="articles")
     supplementary_materials = relationship('SupplementaryMaterial', back_populates='article')
-    categories = relationship('Category', secondary='article_category')
+    categories = relationship('Category', secondary=article_category, back_populates='articles')
 
     def __repr__(self):
         return '<Article "%s">' % self.title.encode('utf-8')
@@ -83,7 +86,3 @@ class SupplementaryMaterial(Base):
     def __repr__(self):
         return '<SupplementaryMaterial "%s" of Article "%s">' % \
             (self.label.encode('utf-8'), self.article.title.encode('utf-8'))
-
-def set_source(source):
-    # Add your implementation here
-    pass

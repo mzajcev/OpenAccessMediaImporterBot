@@ -13,7 +13,7 @@ def query(params):
     try:
         return site.api('query', **params)
     except mwclient.errors.APIError:
-        stderr.write('Mediawiki API request failed, retrying.\n')
+        print('Mediawiki API request failed, retrying.\n')
         return query(params)
 
 def get_uploads():
@@ -107,7 +107,7 @@ def upload(filename, wiki_filename, page_template):
     """
     Uploads a file to a mediawiki site.
     """
-    stderr.write('Authenticating with <%s>.\n' % config.api_url)
+    print('Authenticating with <%s>.\n' % config.api_url)
     site.login(username=config.username, password=config.password)
     with open(filename, 'rb') as file:
         site.upload(file, filename=wiki_filename, description=page_template,

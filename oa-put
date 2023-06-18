@@ -15,15 +15,16 @@ from helpers import config
 from helpers import efetch
 from helpers import filename_from_url
 from helpers import mediawiki
-#from helpers import template
-from model import session #setup_all, create_all, set_source, \
+
+# from helpers import template
+from model import session, set_source  # , setup_all, create_all
 from model import Article, Journal, SupplementaryMaterial
 
 try:
     action = argv[1]
     target = argv[2]
 except IndexError:  # no arguments given
-    stderr.write("""
+    print("""
 oa-put – Open Access Importer upload operations
 
 usage:  oa-put upload-media [source]
@@ -34,17 +35,17 @@ usage:  oa-put upload-media [source]
 try:
     assert(action in ['upload-media'])
 except AssertionError:  # invalid action
-    stderr.write("Unknown action “%s”.\n" % action)
+    print("Unknown action “%s”.\n" % action)
     exit(2)
 
 try:
     exec("from sources import %s as source_module" % target)
 except ImportError:  # invalid source
-    stderr.write("Unknown source “%s”.\n" % target)
+    print("Unknown source “%s”.\n" % target)
     exit(3)
 
 set_source(target)
-setup_all(True)
+# setup_all(True)
 
 if action == 'upload-media':
     media_refined_directory = config.get_media_refined_source_path(target)
@@ -57,16 +58,16 @@ if action == 'upload-media':
         filename = filename_from_url(material.url) + '.ogg'
         media_refined_path = path.join(media_refined_directory, filename)
 
-        if (path.getsize(media_refined_path) == 0):
-            material.converted=False
+        if path.getsize(media_refined_path) == 0:
+            material.converted = False
             continue
 
         if mediawiki.is_uploaded(material):
-            stderr.write("Skipping “%s”, already exists at %s.\n" % (
-                media_refined_path.encode('utf-8'),
-                mediawiki.get_wiki_name()
-            ))
-            material.uploaded=True
+            print(
+                "Skipping “%s”, already exists at %s.\n"
+                % (media_refined_path.encode("utf-8"), mediawiki.get_wiki_name())
+            )
+            material.uploaded = True
             continue
 
         article_doi = material.article.doi
@@ -90,7 +91,7 @@ if action == 'upload-media':
         if article_pmid is not None:
             categories += efetch.get_categories_from_pmid(article_pmid)
 
-        #TODO: file extension should be adapted for other file formats
+        # TODO: file extension should be adapted for other file formats
         url_path = urlparse.urlsplit(material.url).path
         source_filename = url_path.split('/')[-1]
         assert(mimetype in ('audio', 'video'))
@@ -123,7 +124,7 @@ if action == 'upload-media':
 
         mediawiki.upload(media_refined_path, wiki_filename, page_template)
 
-        stderr.write("“%s” uploaded to <%s>.\n" % (
+        print("“%s” uploaded to <%s>.\n" % (
             media_refined_path.encode('utf-8'),
             config.api_url.encode('utf-8')
         ))
