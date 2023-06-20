@@ -8,9 +8,9 @@ def download_metadata(
     links=[
         "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2559997/bin/1756-3305-1-29-S1.mpg",
         "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10036205/bin/10-1055-a-2048-6170-i3798ev2.jpg",
-        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=9206064%E2%80%9D",
-        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10036205/figure/FI3798-2/",
-        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC460005/figure/F1/",
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=9206064%E2%80%9D"
+        # "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10036205/figure/FI3798-2/",
+        # "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC460005/figure/F1/",
     ],
 ):
     if not os.path.exists(target_directory):
