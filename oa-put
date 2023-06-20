@@ -50,10 +50,7 @@ set_source(target)
 if action == 'upload-media':
     media_refined_directory = config.get_media_refined_source_path(target)
 
-    materials = SupplementaryMaterial.query.filter_by(
-        converted=True,
-        uploaded=False
-    ).all()
+    materials = session.query(SupplementaryMaterial).all()
     for material in materials:
         filename = filename_from_url(material.url) + '.ogg'
         media_refined_path = path.join(media_refined_directory, filename)

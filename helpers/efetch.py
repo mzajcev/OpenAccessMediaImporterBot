@@ -4,9 +4,12 @@
 from urllib.parse import urlparse #Request, HTTPError #urlopen
 from xml.etree.cElementTree import dump, ElementTree
 from sys import stderr
+import requests
+import urlopen
+from urllib.error import HTTPError
 
 def _get_file_from_url(url):
-    req = Request(url, None, {'User-Agent' : 'oa-put/2012-08-15'})
+    req = requests(url, None, {'User-Agent' : 'oa-put/2012-08-15'})
     try:
         remote_file = urlopen(req)
         return remote_file
@@ -16,7 +19,7 @@ def _get_file_from_url(url):
         exit(255)
 
 def get_pmcid_from_doi(doi):
-    if not type(doi) == unicode:
+    if not isinstance(doi, str):
         raise TypeError("Cannot get PMCID for DOI %s of type %s." % (doi, type(doi)))
     url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%s' % doi
     xml_file = _get_file_from_url(url)
@@ -28,7 +31,7 @@ def get_pmcid_from_doi(doi):
         return None
 
 def get_pmid_from_doi(doi):
-    if not type(doi) == unicode:
+    if not isinstance(doi, str):
         raise TypeError("Cannot get PMID for DOI %s of type %s." % (doi, type(doi)))
     url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=%s' % doi
     xml_file = _get_file_from_url(url)

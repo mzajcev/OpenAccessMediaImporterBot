@@ -1,5 +1,5 @@
 import mwclient
-from helpers import config
+from helpers import config, mediawiki, filename_from_url
 from dateutil import parser
 from sys import stderr
 from cachelib import SimpleCache
