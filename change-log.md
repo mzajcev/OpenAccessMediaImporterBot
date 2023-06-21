@@ -1,10 +1,21 @@
 # Änderungsprotokoll:
 
+## Allgemeine Änderungen und Notizen:
+- Update auf Python 3 des gesamten Codes
+- Damit die Funktionen des Bots angefangen mit download-metadata funktionierten mussten wir zuerst die Test Dateien dummy.py und pmc_doi anpassen
+
+#### dummy.py 
+- Für dummy.py probierten wir verschieden Download Dateien und reparierten kleiner Fehler
+- Fügten die links als Variable der Funktion hinzu, ergänzen den Code so das er tatsächlich die files runterlädt statt sie nur zu "yielden", dies Funktionierte vielleicht in Python 2
+
+#### pmc_doi.py
+- Viele kleine Anpassungen der Relationen der Funktionen der Dateien untereinander, Hinzufügen von Argumenten, oft ausblenden von optinoalen Parametern und Argumenten
+- Anpassen der Download Struktur selbes Problem wie bei dummy.py mit dem "yielden" von Inhalten
+- Hinzufügen von Download statements mit Hilfe von Carlin (externer Programmieren von WikiData)
+- Oft wurde nur der Inhalt geprinted statt gespeichert
+
+
 ### Datei: oa-cache
-
-Update auf Python 3
-- Update des Codes zu Python 3
-
   
 #### 1. Art der Änderung: Import-Anweisungen entfernt
 
@@ -13,8 +24,6 @@ Was?
 - Folgende Module wurden entfernt: gobject, pygst, gst
 - Funktionen und Klassen, die nicht mehr verwendet werden, wurden entfernt: setup_all, create_all
 
-
-  
 
 #### 2. Art der Änderung: Import-Anweisungen aktualisiert / Hinzugefügt
 
@@ -52,9 +61,6 @@ Was?
 - der Code für category wurde zunächst entfernt, weil dies in der Pipeline der find-media Funktion für Probleme mit Abhängigkeiten gesorgt hat, dafür werden die Ergebnise geprintet
 
 ### Datei: oa-get
-
-Update auf Python 3
-
 
 #### 1. Art der Änderung: Import-Anweisungen hinzugefügt / geändert
 
@@ -99,8 +105,6 @@ Was?
   
 
 ### Datei: model.py
-
-update auf Python 3
 
 #### 1. Art der Änderung: Import-Anweisungen hinzugefügt / geändert
 
@@ -160,6 +164,7 @@ Was?
 
 Was?
 
+<<<<<<< HEAD
 - sqlite wird beim 'database_path' benötigt, damit der jeweilige Befehl die einzelnen Databases anlegen kann.
 
 
@@ -176,3 +181,6 @@ Was?
 - Anpassen der Download Struktur selbes Problem wie bei dummy.py mit dem "yielden" von Inhalten
 - Hinzufügen von Download statements mit Hilfe von Carlin (externer Programmieren von WikiData)
 - Oft wurde nur der Inhalt geprinted statt gespeichert
+=======
+- sqlite wird beim 'database_path' benötigt, weil .... (@Matthias)
+>>>>>>> 44a46489d18e71ab3d03758854547057a485c122
