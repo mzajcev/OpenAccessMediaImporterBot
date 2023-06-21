@@ -112,16 +112,14 @@ Was?
 
 Was?
 
-- anstatt sqllite nutzen von importlib, weil .... (@Matthias pls)
+- anstatt sqllite nutzen von importlib, um das source_module zu definieren.
 
 #### 3. Art der Änderung: Definieren neuer Variablen
 
 Was?
- (@Matthias)
-- engine --> ...
-- Session --> ...
-- session --> ...
-- Base --> ....
+- engine --> zum deklarieren der SQL-Umgebung
+- Session --> zum definieren einer Session im Botablauf
+
 
 #### 4. Art der Änderung: Änderung in der Klasse 'Journal'
 
@@ -156,13 +154,13 @@ Was?
 
 - Ursprünglicher Pfad hat auf den eigenen Laptops nicht funktioniert, jeder musste diesen manuell ändern
 - Später eine Änderung mit Relativen Pfad hinzugefügt
-- Anpassung der User Config (@Matthias)
+- Anpassung der User Config und erweiterung um spezifische lokale Variablen
 
 #### 2. Art der Änderung: Hinzufügen bei der Funktion 'database_path'
 
 Was?
 
-- sqlite wird beim 'database_path' benötigt, weil .... (@Matthias)
+- sqlite wird beim 'database_path' benötigt, damit der jeweilige Befehl die einzelnen Databases anlegen kann.
 
 
 
