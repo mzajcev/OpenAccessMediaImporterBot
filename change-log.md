@@ -1,10 +1,21 @@
 # Änderungsprotokoll:
 
+## Allgemeine Änderungen und Notizen:
+- Update auf Python 3 des gesamten Codes
+- Damit die Funktionen des Bots angefangen mit download-metadata funktionierten mussten wir zuerst die Test Dateien dummy.py und pmc_doi anpassen
+
+#### dummy.py 
+- Für dummy.py probierten wir verschieden Download Dateien und reparierten kleiner Fehler
+- Fügten die links als Variable der Funktion hinzu, ergänzen den Code so das er tatsächlich die files runterlädt statt sie nur zu "yielden", dies Funktionierte vielleicht in Python 2
+
+#### pmc_doi.py
+- Viele kleine Anpassungen der Relationen der Funktionen der Dateien untereinander, Hinzufügen von Argumenten, oft ausblenden von optinoalen Parametern und Argumenten
+- Anpassen der Download Struktur selbes Problem wie bei dummy.py mit dem "yielden" von Inhalten
+- Hinzufügen von Download statements mit Hilfe von Carlin (externer Programmieren von WikiData)
+- Oft wurde nur der Inhalt geprinted statt gespeichert
+
+
 ### Datei: oa-cache
-
-Update auf Python 3
-- Update des Codes zu Python 3
-
   
 #### 1. Art der Änderung: Import-Anweisungen entfernt
 
@@ -13,8 +24,6 @@ Was?
 - Folgende Module wurden entfernt: gobject, pygst, gst
 - Funktionen und Klassen, die nicht mehr verwendet werden, wurden entfernt: setup_all, create_all
 
-
-  
 
 #### 2. Art der Änderung: Import-Anweisungen aktualisiert / Hinzugefügt
 
@@ -52,9 +61,6 @@ Was?
 - der Code für category wurde zunächst entfernt, weil dies in der Pipeline der find-media Funktion für Probleme mit Abhängigkeiten gesorgt hat, dafür werden die Ergebnise geprintet
 
 ### Datei: oa-get
-
-Update auf Python 3
-
 
 #### 1. Art der Änderung: Import-Anweisungen hinzugefügt / geändert
 
@@ -100,8 +106,6 @@ Was?
 
 ### Datei: model.py
 
-update auf Python 3
-
 #### 1. Art der Änderung: Import-Anweisungen hinzugefügt / geändert
 
 Was?
@@ -112,16 +116,14 @@ Was?
 
 Was?
 
-- anstatt sqllite nutzen von importlib, weil .... (@Matthias pls)
+- anstatt sqllite nutzen von importlib, um das source_module zu definieren.
 
 #### 3. Art der Änderung: Definieren neuer Variablen
 
 Was?
- (@Matthias)
-- engine --> ...
-- Session --> ...
-- session --> ...
-- Base --> ....
+- engine --> zum deklarieren der SQL-Umgebung
+- Session --> zum definieren einer Session im Botablauf
+
 
 #### 4. Art der Änderung: Änderung in der Klasse 'Journal'
 
@@ -156,13 +158,14 @@ Was?
 
 - Ursprünglicher Pfad hat auf den eigenen Laptops nicht funktioniert, jeder musste diesen manuell ändern
 - Später eine Änderung mit Relativen Pfad hinzugefügt
-- Anpassung der User Config (@Matthias)
+- Anpassung der User Config und erweiterung um spezifische lokale Variablen
 
 #### 2. Art der Änderung: Hinzufügen bei der Funktion 'database_path'
 
 Was?
 
-- sqlite wird beim 'database_path' benötigt, weil .... (@Matthias)
+<<<<<<< HEAD
+- sqlite wird beim 'database_path' benötigt, damit der jeweilige Befehl die einzelnen Databases anlegen kann.
 
 
 
@@ -178,3 +181,6 @@ Was?
 - Anpassen der Download Struktur selbes Problem wie bei dummy.py mit dem "yielden" von Inhalten
 - Hinzufügen von Download statements mit Hilfe von Carlin (externer Programmieren von WikiData)
 - Oft wurde nur der Inhalt geprinted statt gespeichert
+=======
+- sqlite wird beim 'database_path' benötigt, weil .... (@Matthias)
+>>>>>>> 44a46489d18e71ab3d03758854547057a485c122
