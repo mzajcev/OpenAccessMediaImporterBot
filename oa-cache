@@ -88,7 +88,7 @@ from helpers import config
 if action == "browse-database":
     filename = config.database_path(target)
     try:
-        subprocess.call(["sqlitebrowser", filename])
+        subprocess.call(["sqlite:///", filename])
     except OSError:
         print(
             "Unable to start sqlitebrowser <http://sqlitebrowser.sourceforge.net/>.\n"
