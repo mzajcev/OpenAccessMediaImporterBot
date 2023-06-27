@@ -150,7 +150,7 @@ Was?
 
 ### Datei: config.py
 
-update auf Python 3
+Update auf Python 3
 
 #### 1. Art der Änderung: Path Änderung
 
@@ -164,7 +164,6 @@ Was?
 
 Was?
 
-<<<<<<< HEAD
 - sqlite wird beim 'database_path' benötigt, damit der jeweilige Befehl die einzelnen Databases anlegen kann.
 
 
@@ -181,6 +180,3 @@ Was?
 - Anpassen der Download Struktur selbes Problem wie bei dummy.py mit dem "yielden" von Inhalten
 - Hinzufügen von Download statements mit Hilfe von Carlin (externer Programmieren von WikiData)
 - Oft wurde nur der Inhalt geprinted statt gespeichert
-=======
-- sqlite wird beim 'database_path' benötigt, weil .... (@Matthias)
->>>>>>> 44a46489d18e71ab3d03758854547057a485c122
